@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.example.database.DBManager;
+import com.squareup.leakcanary.LeakCanary;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class BaseApplication extends Application{
         super.onCreate();
         mInstance = this;
         activities = new LinkedList<Activity>();
+        LeakCanary.install(this);
         //使用UncaughtExceptionHandler捕获全局异常
         Thread.setDefaultUncaughtExceptionHandler(com.caoyujie.basestorehouse.commons.utils.CrashHandler.newInstane());
     }

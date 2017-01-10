@@ -21,7 +21,7 @@ import rx.schedulers.Schedulers;
 public class RetrofitClient {
     private static RetrofitClient INSTANCE;
     private static int DEFAULT_TIMEOUT = 5;
-    public static final String BASE_URL = "https://api.douban.com/v2/movie/";
+    public static final String BASE_URL = "https://api.douban.com/";
     private Retrofit retrofit;
     private ApiService apiService;
 

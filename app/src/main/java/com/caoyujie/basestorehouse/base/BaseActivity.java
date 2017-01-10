@@ -3,11 +3,17 @@ package com.caoyujie.basestorehouse.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 
 import com.caoyujie.basestorehouse.R;
 import com.caoyujie.basestorehouse.mvp.ui.LoadingView;
 import com.caoyujie.basestorehouse.commons.utils.UserPermissionManager;
+import com.caoyujie.basestorehouse.ui.widget.LoadingDialog;
 import com.github.ybq.android.spinkit.SpinKitView;
 
 import butterknife.ButterKnife;
@@ -15,8 +21,8 @@ import butterknife.ButterKnife;
 /**
  * Created by caoyujie on 16/12/4.
  */
-public abstract class BaseActivity extends Activity implements LoadingView{
-    private SpinKitView loadingview;
+public abstract class BaseActivity extends AppCompatActivity implements LoadingView {
+    private LoadingDialog loadingview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,22 +56,22 @@ public abstract class BaseActivity extends Activity implements LoadingView{
     /**
      * 显示loading
      */
-    public void showLoading(){
-        if(loadingview == null){
-            loadingview = (SpinKitView) findViewById(R.id.loadingview);
+    @Override
+    public void showLoading() {
+        if (loadingview == null) {
+            loadingview = new LoadingDialog(this);
         }
-        if(loadingview != null) {
-            loadingview.setVisibility(View.VISIBLE);
-        }
+        loadingview.show();
     }
 
 
     /**
      * 关闭loading
      */
-    public void dismissLoading(){
-        if(loadingview != null){
-            loadingview.setVisibility(View.GONE);
+    @Override
+    public void dismissLoading() {
+        if (loadingview != null) {
+            loadingview.dismiss();
         }
     }
 
@@ -86,7 +92,7 @@ public abstract class BaseActivity extends Activity implements LoadingView{
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         //注册回调事件
-        UserPermissionManager.getInstance().registCallBack(requestCode,permissions,grantResults);
+        UserPermissionManager.getInstance().registCallBack(requestCode, permissions, grantResults);
     }
 
     @Override

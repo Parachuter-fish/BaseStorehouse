@@ -19,6 +19,8 @@ import rx.Subscriber;
 public abstract class BaseSubcriber<T> extends Subscriber<ResponseBody> {
 
     private Class<T> clx;
+    public static final int SUCCEED_CODE = 200;
+    public static final String SUCCEED_MSG = "";
 
     public BaseSubcriber(Class<T> clx){
         this.clx = clx;
@@ -33,6 +35,7 @@ public abstract class BaseSubcriber<T> extends Subscriber<ResponseBody> {
     public void onError(Throwable e) {
         ToastUtils.shortToast("请求出错");
         e.printStackTrace();
+        onResult(null);
     }
 
     @Override
@@ -52,6 +55,7 @@ public abstract class BaseSubcriber<T> extends Subscriber<ResponseBody> {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            onResult(null);
         }
     }
 

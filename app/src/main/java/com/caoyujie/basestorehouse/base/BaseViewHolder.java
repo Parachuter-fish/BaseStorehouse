@@ -1,5 +1,6 @@
 package com.caoyujie.basestorehouse.base;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -22,7 +23,7 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder implemen
     /**
      * 设置数据
      */
-    public abstract void setData(T data);
+    public abstract void setData(Context context, T data);
 
     @Override
     public void onClick(View v) {

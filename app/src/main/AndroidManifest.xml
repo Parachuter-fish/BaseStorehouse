@@ -17,7 +17,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="${app_name_label}"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity android:name=".activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>

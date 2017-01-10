@@ -33,6 +33,13 @@ public class ImageLoadManager {
     }
 
     /**
+     * 加载圆角图片
+     */
+    public void loadImage(Context context, String url, ImageView view , int radius){
+        Glide.with(context).load(url).crossFade().transform(new GlideRoundTransform(context,radius)).into(view);
+    }
+
+    /**
      * 加载图片
      * options: 参数内部类
      */

@@ -5,7 +5,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:layout_centerInParent="true">
@@ -13,7 +13,7 @@
 
         <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/loadingview"
-            style="@style/SpinKitView.Large.DoubleBounce"
+            style="@style/SpinKitView.Large.Wave"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerInParent="true"

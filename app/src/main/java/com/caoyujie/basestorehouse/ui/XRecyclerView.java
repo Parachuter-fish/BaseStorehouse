@@ -26,9 +26,8 @@ public class XRecyclerView extends LinearLayout {
     private BaseRecyclerView recyclerView;
     private int lastVisibleItem;
     private int totalItemCount;         //总条目数
-    private boolean isLoading = false;  //是否在加载中
     private OnLoadNextListener onLoadNextListener;
-    //private BaseRecyclerViewAdapter adapter;
+    private boolean isLoadNext = false;     //加载更多中
 
     public XRecyclerView(Context context) {
         this(context, null);
@@ -54,11 +53,11 @@ public class XRecyclerView extends LinearLayout {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && totalItemCount <= lastVisibleItem) {
+                if ( !isLoadNext && newState == RecyclerView.SCROLL_STATE_IDLE && totalItemCount - 1 == lastVisibleItem) {
                     if (onLoadNextListener != null) {
-                        onLoadNextListener.onLoadNext();
                         BaseRecyclerViewAdapter adapter = (BaseRecyclerViewAdapter) recyclerView.getAdapter();
-                        adapter.setLoadNext(true);
+                        setLoadNext(true);
+                        onLoadNextListener.onLoadNext(adapter);
                     }
                 }
             }
@@ -68,7 +67,7 @@ public class XRecyclerView extends LinearLayout {
                 super.onScrolled(recyclerView, dx, dy);
                 RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
                 if (layoutManager instanceof RecyclerView.LayoutManager) {
-                    totalItemCount = layoutManager.getItemCount();
+                    totalItemCount = recyclerView.getAdapter().getItemCount();
                     if (layoutManager instanceof LinearLayoutManager) {
                         LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
                         lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
@@ -92,21 +91,22 @@ public class XRecyclerView extends LinearLayout {
      * @param isLoading 控制显示、隐藏
      */
     public void setLoadNext(boolean isLoading){
-        if(recyclerView.getAdapter() != null && recyclerView.getAdapter() instanceof BaseRecyclerViewAdapter) {
-            ((BaseRecyclerViewAdapter)recyclerView.getAdapter()).setLoadNext(isLoading);
-        }
+        isLoadNext = isLoading;
     }
 
 
     /**
-     * 到达底部监听
+     * 到达底部接口
      */
     public interface OnLoadNextListener {
-        void onLoadNext();
+        void onLoadNext(BaseRecyclerViewAdapter adapter);
     }
 
+    /**
+     * 设置到达底部回调接口
+     */
     public void setOnLoadNextListener(OnLoadNextListener listener) {
-        this.onLoadNextListener = onLoadNextListener;
+        this.onLoadNextListener = listener;
     }
 
     /**
@@ -124,6 +124,16 @@ public class XRecyclerView extends LinearLayout {
     public void setLayoutManager(RecyclerView.LayoutManager layoutManager){
         if(recyclerView != null) {
             recyclerView.setLayoutManager(layoutManager);
+        }
+    }
+
+    /**
+     * 设置分界线
+     * @param itemDecoration
+     */
+    public void addItemDecoration(RecyclerView.ItemDecoration itemDecoration){
+        if(recyclerView != null){
+            recyclerView.addItemDecoration(itemDecoration);
         }
     }
 }

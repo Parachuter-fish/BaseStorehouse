@@ -4,4 +4,19 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorGray">#8e8e8e</color>
+    <color name="colorGrey">#469461</color>
+    <color name="colorWhite">#fff</color>
+    <color name="lineColor">#8e8e8e</color>
+
+    <color name="bg_refresh_head">#e1e1e1</color>
+    <color name="navbar_bottom_inactivity_color">#a9a9a9</color>
+
+    <color name="text_content_color">#282828</color>
+
+
+    <color name="navbar_bg1">#ffa5a5</color>
+    <color name="navbar_bg2">#ff9d68</color>
+    <color name="navbar_bg3">#82deff</color>
+    <color name="navbar_bg4">#dca3ff</color>
+
 </resources>

@@ -12,8 +12,9 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
 /**
- * Created by caoyujie on 16/12/13.
- * Glide圆角图片转换类
+ *  Created by qly on 2016/6/22.
+ *  将图片转化为圆角
+ *  构造中第二个参数定义半径
  */
 public class GlideRoundTransform extends BitmapTransformation {
 
@@ -28,17 +29,16 @@ public class GlideRoundTransform extends BitmapTransformation {
         this.radius = Resources.getSystem().getDisplayMetrics().density * dp;
     }
 
-    @Override
-    protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+    @Override protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
         return roundCrop(pool, toTransform);
     }
 
     private static Bitmap roundCrop(BitmapPool pool, Bitmap source) {
         if (source == null) return null;
 
-        Bitmap result = pool.get(source.getWidth(), source.getHeight(), Bitmap.Config.RGB_565);
+        Bitmap result = pool.get(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
         if (result == null) {
-            result = Bitmap.createBitmap(source.getWidth(), source.getHeight(), Bitmap.Config.RGB_565);
+            result = Bitmap.createBitmap(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
         }
 
         Canvas canvas = new Canvas(result);

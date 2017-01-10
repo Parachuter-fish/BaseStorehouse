@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 
 import com.caoyujie.basestorehouse.base.BaseApplication;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import java.util.List;
  */
 public class UserPermissionManager {
     private static UserPermissionManager manager;
-    private OnPermissionCallBack onPermissionCallBack;
+    private WeakReference<OnPermissionCallBack> onPermissionCallBack;
 
 
     public static UserPermissionManager getInstance() {
@@ -59,8 +60,8 @@ public class UserPermissionManager {
      * @param permissions 请求的权限
      * @param requestCode 请求权限的请求码
      */
-    public void requestPermission(Activity activity, String[] permissions, int requestCode , OnPermissionCallBack callBack) {
-        this.onPermissionCallBack = callBack;
+    public void requestPermission(Activity activity, String[] permissions, int requestCode, OnPermissionCallBack callBack) {
+        this.onPermissionCallBack = new WeakReference<OnPermissionCallBack>(callBack);
         if (checkPermissions(permissions)) {
             return;
         }
@@ -90,15 +91,15 @@ public class UserPermissionManager {
      * @param grantResults
      * @return
      */
-    public boolean checkPermissions(String[] requestPermissions,List<String> grantResults) {
-        if(requestPermissions.length == grantResults.size()) {
+    public boolean checkPermissions(String[] requestPermissions, List<String> grantResults) {
+        if (requestPermissions.length == grantResults.size()) {
             for (String grantResult : requestPermissions) {
                 if (!grantResults.contains(grantResult)) {
                     return false;
                 }
             }
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -119,7 +120,7 @@ public class UserPermissionManager {
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startAppSettings(activity);
+                            startAppSettings(activity);
                     }
                 }).show();
     }
@@ -136,28 +137,30 @@ public class UserPermissionManager {
     /**
      * 注册一个权限返回事件
      * 必须在activity的 onRequestPermissionsResult 方法中注册
-     * @param requestCode   请求码
-     * @param permissions   本次请求的权限，请求了哪些权限就返回哪些权限
-     * @param grantResults  本次请求结果，0:成功 －1:失败
+     *
+     * @param requestCode  请求码
+     * @param permissions  本次请求的权限，请求了哪些权限就返回哪些权限
+     * @param grantResults 本次请求结果，0:成功 －1:失败
      */
-    public void registCallBack(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
-        if(onPermissionCallBack != null){
+    public void registCallBack(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (onPermissionCallBack.get() != null) {
             List<String> permissionSucceed = new ArrayList<String>();
-            for (int i = 0 ; i < grantResults.length ; i++) {
-                if(grantResults[i] == 0){
+            for (int i = 0; i < grantResults.length; i++) {
+                if (grantResults[i] == 0) {
                     permissionSucceed.add(permissions[i]);
                 }
             }
-            onPermissionCallBack.callBack(requestCode,permissions,permissionSucceed);
+            onPermissionCallBack.get().callBack(requestCode, permissions, permissionSucceed);
         }
     }
 
     /**
      * 请求结果回调接口
      * * 系统请求权限回调
-     * @param requestCode   请求码
-     * @param permissions   本次请求的权限，请求了哪些权限就返回哪些权限
-     * @param grantResults  本次请求成功结果，返回成功的权限名
+     *
+     * @param requestCode  请求码
+     * @param permissions  本次请求的权限，请求了哪些权限就返回哪些权限
+     * @param grantResults 本次请求成功结果，返回成功的权限名
      */
     public interface OnPermissionCallBack {
         void callBack(int requestCode, String[] permissions, List<String> grantResults);
