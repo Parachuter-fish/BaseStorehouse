@@ -1,8 +1,11 @@
 package com.caoyujie.basestorehouse.commons.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.caoyujie.basestorehouse.base.BaseApplication;
 
@@ -34,5 +37,17 @@ public class WindowsUtils {
                 .putExtra(Intent.EXTRA_SHORTCUT_INTENT, launcherIntent);
         //发送广播。OK
         thisActivity.sendBroadcast(shortcutintent);
+    }
+
+    /**
+     * 设置屏幕遮障值
+     * @param alpha: 1为完全透明（既没有）  0为完全不透明（既黑色），数值越小颜色越深
+     */
+    public static void setWindowBackgroundAlpha(Activity context , float alpha){
+        Window window = context.getWindow();
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.alpha = alpha;
+        window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        window.setAttributes(params);
     }
 }

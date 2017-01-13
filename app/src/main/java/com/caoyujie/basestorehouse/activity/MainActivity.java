@@ -1,5 +1,6 @@
 package com.caoyujie.basestorehouse.activity;
 
+import android.animation.Animator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -8,8 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -20,20 +23,25 @@ import com.caoyujie.basestorehouse.activity.fragment.Fragment2;
 import com.caoyujie.basestorehouse.activity.fragment.Fragment3;
 import com.caoyujie.basestorehouse.activity.fragment.MovieFragment;
 import com.caoyujie.basestorehouse.base.BaseFragmentActivity;
-import com.caoyujie.basestorehouse.commons.utils.LogUtils;
 import com.caoyujie.basestorehouse.commons.utils.ToastUtils;
+import com.caoyujie.basestorehouse.ui.MainSlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 
 import butterknife.BindView;
 
 public class MainActivity extends BaseFragmentActivity implements BottomNavigationBar.OnTabSelectedListener
-,SearchView.OnQueryTextListener{
+        , SearchView.OnQueryTextListener {
     @BindView(R.id.fl_fragment)
     public FrameLayout fragmentContent;
     @BindView(R.id.bottom_nav_bar)
     public BottomNavigationBar buttomBar;
     @BindView(R.id.toobar)
     public Toolbar toobar;
+    @BindView(R.id.v_filter)
+    public View iv_filter;
+
+    private SlidingMenu slidingMenu;
 
     private BottomNavigationItem movieItem, musicItem, homeItem, gameItem;
     private BadgeItem gameBadge;
@@ -45,6 +53,59 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
 
     @Override
     protected void initView() {
+        initBottomNavbar();
+        /**
+         * 将application的theme设置为notActionbar,然后将自己的toolbar设置上去
+         */
+        setSupportActionBar(toobar);
+        initSlidingMenu();
+    }
+
+    /**
+     * 初始化侧拉菜单
+     */
+    private void initSlidingMenu() {
+        final MainSlidingMenu contentView = new MainSlidingMenu(this);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        contentView.setLayoutParams(params);
+        slidingMenu = new SlidingMenu(this);
+        slidingMenu.setMenu(contentView);
+        slidingMenu.setMode(SlidingMenu.LEFT);
+        // 设置滑动菜单视图的宽度
+        slidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+        // 设置渐入渐出效果的值
+        slidingMenu.setFadeDegree(0.35f);
+        slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        slidingMenu.setFadeEnabled(true);
+        //滑动距离监听
+        slidingMenu.setOnScrollDistanceListener(new SlidingMenu.OnScrollDistanceListener() {
+            @Override
+            public void onPageScrolled(float positionOffset, int positionOffsetPixels) {
+                setActivityFilter(positionOffset);
+            }
+        });
+    }
+
+    /**
+     * 设置activity滤镜效果
+     */
+    private void setActivityFilter(float positionOffset) {
+        float alpha = positionOffset * 0.7f;
+        iv_filter.setAlpha(alpha);
+        if (alpha <= 0) {
+            if (iv_filter.isShown())
+                iv_filter.setVisibility(View.GONE);
+        } else {
+            if (!iv_filter.isShown())
+                iv_filter.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * 初始化底部导航栏
+     */
+    private void initBottomNavbar() {
         buttomBar.setMode(BottomNavigationBar.MODE_SHIFTING);
         buttomBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);      //设置buttomBar的模式
         //生成标记
@@ -64,10 +125,7 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
         buttomBar.setFirstSelectedPosition(0);      //默认展示item
         buttomBar.initialise();                     //初始化navigationbar
         buttomBar.setTabSelectedListener(this);     //设置导航切换监听
-        /**
-         * 将application的theme设置为notActionbar,然后将自己的toolbar设置上去
-         */
-        setSupportActionBar(toobar);
+
     }
 
     @Override
@@ -81,13 +139,33 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
      */
     private void setToolBarTitleClick() {
         View toolbarTitle = toobar.getChildAt(0);
-        if(toolbarTitle != null)
+        if (toolbarTitle != null)
             toolbarTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    LogUtils.i("TAG","1");
                     ViewPropertyAnimator viewPropertyAnimator = v.animate().rotationXBy(360F).setDuration(300);
                     viewPropertyAnimator.start();
+                    viewPropertyAnimator.setListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            slidingMenu.showMenu();
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+
+                        }
+                    });
                 }
             });
     }
@@ -97,7 +175,7 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         //找到searchmenu
         MenuItem searchItem = menu.findItem(R.id.action_seach);
         //通过searchmenu找到默认的searchview
@@ -109,7 +187,7 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_richScan:
 
                 break;
@@ -123,8 +201,8 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
     /**
      * 显示某个fragment
      */
-    private <T extends Fragment>void showFragment(Class<T> fragment) {
-        replaceFragmentOnAnim(R.id.fl_fragment,R.anim.start_fragment,R.anim.exit_fragment, fragment);
+    private <T extends Fragment> void showFragment(Class<T> fragment) {
+        replaceFragmentOnAnim(R.id.fl_fragment, R.anim.start_fragment, R.anim.exit_fragment, fragment);
     }
 
     /**
@@ -143,7 +221,7 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
     }
 
     /**
-     ********************* tab选择回调 ******************
+     * **************************** tab选择回调 **********************************
      **/
     @Override
     public void onTabSelected(int position) {
@@ -175,10 +253,10 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
     public void onTabReselected(int position) {
 
     }
-    /****************************************/
+    /***************************************************************************/
 
     /**
-     ********************* searchView回调 ******************
+     * **************************** searchView回调 *******************************
      **/
     //提交时的文本
     @Override
@@ -192,5 +270,5 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
     public boolean onQueryTextChange(String newText) {
         return false;
     }
-    /****************************************/
+    /************************************************************************/
 }

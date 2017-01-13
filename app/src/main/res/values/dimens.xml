@@ -10,4 +10,8 @@
     <dimen name="text_size_middle">14sp</dimen>
     <dimen name="test_size_large">16sp</dimen>
     <dimen name="test_size_largest">18sp</dimen>
+
+
+    <dimen name="slidingmenu_offset">100dp</dimen>
+    <dimen name="shadow_width">10dp</dimen>
 </resources>

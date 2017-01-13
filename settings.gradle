@@ -1,5 +1,6 @@
-include ':app', ':database';
+include ':app', ':database' , 'slidingmenu';
 
 project(':database').projectDir = new File('./database')
+project(':slidingmenu').projectDir = new File('./slidingmenu')
 
 

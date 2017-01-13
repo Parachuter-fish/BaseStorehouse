@@ -50,6 +50,7 @@ dependencies {
     compile 'io.reactivex:rxjava:1.2.2'
     compile 'com.github.ybq:Android-SpinKit:1.1.0'
     compile project(':database')
+    compile project(':slidingmenu')
     compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'

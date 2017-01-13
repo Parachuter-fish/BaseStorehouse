@@ -8,6 +8,8 @@
     <color name="colorWhite">#fff</color>
     <color name="lineColor">#8e8e8e</color>
 
+    <color name="bg_white">#e6e6e6</color>
+
     <color name="bg_refresh_head">#e1e1e1</color>
     <color name="navbar_bottom_inactivity_color">#a9a9a9</color>
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@color/bg_refresh_head">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_default"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/icon_pull_refresh" />
+
+        <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/loadingview"
+            style="@style/SpinKitView.Large.DoubleBounce"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginRight="7dp"
+            android:visibility="gone"
+            app:SpinKit_Color="@color/colorPrimaryDark" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp">
+
+            <TextView
+                android:id="@+id/tv_refresh_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:textSize="@dimen/text_size_middle"
+                android:text="下拉刷新" />
+
+            <TextView
+                android:id="@+id/tv_refresh_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_middle"
+                android:text="更新时间" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
