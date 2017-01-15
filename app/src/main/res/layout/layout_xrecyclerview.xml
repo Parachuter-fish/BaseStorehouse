@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.caoyujie.basestorehouse.ui.BaseRecyclerView
+        <com.caoyujie.basestorehouse.ui.widget.BaseRecyclerView
             android:id="@+id/baseRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.caoyujie.basestorehouse.ui.BaseRecyclerView>
+            android:layout_height="match_parent"></com.caoyujie.basestorehouse.ui.widget.BaseRecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

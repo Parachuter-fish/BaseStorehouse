@@ -1,4 +1,4 @@
-package com.caoyujie.basestorehouse.ui;
+package com.caoyujie.basestorehouse.ui.widget;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

@@ -14,7 +14,7 @@ import com.caoyujie.basestorehouse.R;
 import com.caoyujie.basestorehouse.commons.utils.DateFormatUtils;
 import com.caoyujie.basestorehouse.commons.utils.DensityUtils;
 import com.caoyujie.basestorehouse.commons.utils.SharedPreferencesManager;
-import com.caoyujie.basestorehouse.ui.PullToRefreshRecyclerView;
+import com.caoyujie.basestorehouse.ui.widget.PullToRefreshRecyclerView;
 import com.github.ybq.android.spinkit.SpinKitView;
 
 import java.util.ArrayList;

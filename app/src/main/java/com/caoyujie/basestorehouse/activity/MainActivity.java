@@ -39,10 +39,9 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
     @BindView(R.id.toobar)
     public Toolbar toobar;
     @BindView(R.id.v_filter)
-    public View iv_filter;
+    public View v_filter;
 
     private SlidingMenu slidingMenu;
-
     private BottomNavigationItem movieItem, musicItem, homeItem, gameItem;
     private BadgeItem gameBadge;
 
@@ -92,13 +91,13 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
      */
     private void setActivityFilter(float positionOffset) {
         float alpha = positionOffset * 0.7f;
-        iv_filter.setAlpha(alpha);
+        v_filter.setAlpha(alpha);
         if (alpha <= 0) {
-            if (iv_filter.isShown())
-                iv_filter.setVisibility(View.GONE);
+            if (v_filter.isShown())
+                v_filter.setVisibility(View.GONE);
         } else {
-            if (!iv_filter.isShown())
-                iv_filter.setVisibility(View.VISIBLE);
+            if (!v_filter.isShown())
+                v_filter.setVisibility(View.VISIBLE);
         }
     }
 
@@ -121,7 +120,7 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
         buttomBar.addItem(homeItem);
         //添加标记例子
         buttomBar.addItem(gameItem);
-        buttomBar.setActiveColor(R.color.colorGrey).setInActiveColor(R.color.navbar_bottom_inactivity_color);
+        buttomBar.setActiveColor(R.color.colorGreen).setInActiveColor(R.color.navbar_bottom_inactivity_color);
         buttomBar.setFirstSelectedPosition(0);      //默认展示item
         buttomBar.initialise();                     //初始化navigationbar
         buttomBar.setTabSelectedListener(this);     //设置导航切换监听

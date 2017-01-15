@@ -1,4 +1,4 @@
-package com.caoyujie.basestorehouse.ui;
+package com.caoyujie.basestorehouse.ui.widget;
 
 import android.content.Context;
 import android.os.Handler;
@@ -14,7 +14,6 @@ import com.caoyujie.basestorehouse.base.BaseApplication;
 import com.caoyujie.basestorehouse.base.BaseRecyclerViewAdapter;
 import com.caoyujie.basestorehouse.commons.utils.DateFormatUtils;
 import com.caoyujie.basestorehouse.commons.utils.DensityUtils;
-import com.caoyujie.basestorehouse.commons.utils.LogUtils;
 import com.caoyujie.basestorehouse.commons.utils.ThreadPoolManager;
 
 import java.util.Timer;
@@ -73,7 +72,7 @@ public class PullToRefreshRecyclerView extends BaseRecyclerView {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         setLayoutManager(layoutManager);
 
-        this.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        this.addOnScrollListener(new OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -88,8 +87,8 @@ public class PullToRefreshRecyclerView extends BaseRecyclerView {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-                if (layoutManager instanceof RecyclerView.LayoutManager) {
+                LayoutManager layoutManager = recyclerView.getLayoutManager();
+                if (layoutManager instanceof LayoutManager) {
                     totalItemCount = adapter.getItemCount();
                     if (layoutManager instanceof LinearLayoutManager) {
                         LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
@@ -148,7 +147,7 @@ public class PullToRefreshRecyclerView extends BaseRecyclerView {
                     float distance = moveY - oldY;
                     oldY = moveY;
                     float drop_mode = DROP_MIX;
-                    RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) getHeadView().getLayoutParams();
+                    LayoutParams params = (LayoutParams) getHeadView().getLayoutParams();
                     if (params != null) {
                         if (params.topMargin <= (int) (-0.5F * headViewHeight)) {
                             drop_mode = DROP_MIX;
@@ -191,7 +190,7 @@ public class PullToRefreshRecyclerView extends BaseRecyclerView {
      * 设置头部的margin
      */
     private void setHeadViewParams(int y) {
-        RecyclerView.LayoutParams headParams = (RecyclerView.LayoutParams) getHeadView().getLayoutParams();
+        LayoutParams headParams = (LayoutParams) getHeadView().getLayoutParams();
         int topMargin = headParams.topMargin + y;
         if (topMargin > 0) {
             topMargin = 0;
@@ -205,7 +204,7 @@ public class PullToRefreshRecyclerView extends BaseRecyclerView {
         if (currentRefreshTime == 0) {
             setRefreshTime();
         }
-        if (((RecyclerView.LayoutParams) getHeadView().getLayoutParams()).topMargin >= -((int) (0.3F * headViewHeight))) {
+        if (((LayoutParams) getHeadView().getLayoutParams()).topMargin >= -((int) (0.3F * headViewHeight))) {
             alowRefresh = true;
             setRefreshMode(MODE_ALLOW_REFRESH);
         } else {
@@ -347,7 +346,7 @@ public class PullToRefreshRecyclerView extends BaseRecyclerView {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == MODE_RESET) {
-                RecyclerView.LayoutParams params = (LayoutParams) getHeadView().getLayoutParams();
+                LayoutParams params = (LayoutParams) getHeadView().getLayoutParams();
                 params.topMargin -= headViewHeight / 30;
                 getHeadView().setLayoutParams(params);
             }

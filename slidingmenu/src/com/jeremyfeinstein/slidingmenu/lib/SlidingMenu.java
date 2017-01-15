@@ -220,7 +220,6 @@ public class SlidingMenu extends RelativeLayout {
 
 			public void onPageScrolled(int position, float positionOffset,
 					int positionOffsetPixels) {
-				Log.i("TAG","positionOffset："+positionOffset+" , positionOffsetPixels："+positionOffsetPixels);
 				if(mOnScrollDistanceListener != null){
 					mOnScrollDistanceListener.onPageScrolled(Math.abs(positionOffset),Math.abs(positionOffsetPixels));
 				}

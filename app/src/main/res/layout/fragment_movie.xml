@@ -30,11 +30,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.caoyujie.basestorehouse.ui.PullToRefreshRecyclerView
+        <com.caoyujie.basestorehouse.ui.widget.PullToRefreshRecyclerView
             android:id="@+id/xRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/bt1"></com.caoyujie.basestorehouse.ui.PullToRefreshRecyclerView>
+            android:layout_below="@id/bt1"></com.caoyujie.basestorehouse.ui.widget.PullToRefreshRecyclerView>
 
         <com.caoyujie.basestorehouse.ui.MovieTitleView
             android:id="@+id/movie_title_bar"

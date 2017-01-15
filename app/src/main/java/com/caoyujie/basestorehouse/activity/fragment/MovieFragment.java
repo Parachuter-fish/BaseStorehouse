@@ -18,7 +18,7 @@ import com.caoyujie.basestorehouse.mvp.bean.Movie;
 import com.caoyujie.basestorehouse.mvp.presenter.MovieTop250PersenterImpl;
 import com.caoyujie.basestorehouse.mvp.ui.UpdataView;
 import com.caoyujie.basestorehouse.ui.MovieTitleView;
-import com.caoyujie.basestorehouse.ui.PullToRefreshRecyclerView;
+import com.caoyujie.basestorehouse.ui.widget.PullToRefreshRecyclerView;
 
 import java.util.List;
 import java.util.Timer;

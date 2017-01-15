@@ -18,7 +18,7 @@
             android:id="@+id/toobar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorGrey"
+            android:background="@color/colorGreen"
             android:theme="@style/HomeToolbar"
             app:title="BaseStorehouse"></android.support.v7.widget.Toolbar>
 
