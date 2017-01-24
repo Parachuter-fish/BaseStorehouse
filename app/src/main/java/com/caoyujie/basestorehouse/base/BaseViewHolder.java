@@ -28,7 +28,7 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder implemen
     @Override
     public void onClick(View v) {
         if(onItemClickListener != null)
-            onItemClickListener.itemClickListener(v,this.getPosition());
+            onItemClickListener.itemClickListener(v,this.getLayoutPosition());
     }
 
 

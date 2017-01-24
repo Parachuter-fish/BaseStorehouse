@@ -33,8 +33,6 @@ import butterknife.ButterKnife;
  */
 
 public class MovieFragment extends BaseFragment implements UpdataView<Movie> {
-    private View footView;
-    private int page = 0;
     private int movieTitleBarHeight;
     private int currentPosition = 1;       //当前条目 (如有下拉刷新,数据下标从1开始)
     private MovieTop250Adapter adapter;
@@ -46,22 +44,13 @@ public class MovieFragment extends BaseFragment implements UpdataView<Movie> {
     @BindView(R.id.xRecyclerView)
     public PullToRefreshRecyclerView xRecyclerView;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(footView == null){
-            footView = inflater.inflate(R.layout.fragment_movie,container,false);
-            ButterKnife.bind(this,footView);
-        }
-        ViewGroup parent = (ViewGroup) footView.getParent();
-        if( parent != null){
-            parent.removeView(footView);
-        }
-        init();
-        return footView;
+    protected int setContentView() {
+        return R.layout.fragment_movie;
     }
 
-    private void init() {
+    @Override
+    protected void init(View rootView) {
         getMovie();
         xRecyclerView.setOnRefreshListener(new PullToRefreshRecyclerView.OnRefreshListener() {
             @Override
@@ -114,6 +103,7 @@ public class MovieFragment extends BaseFragment implements UpdataView<Movie> {
             }
         });
     }
+
 
     /**
      * 更新movieTitleBar的数据

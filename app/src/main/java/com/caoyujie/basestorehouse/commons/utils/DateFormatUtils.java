@@ -17,7 +17,8 @@ public class DateFormatUtils {
 
     public enum DateFormat{
         FORMAT_DEFAULT("yyyy年MM月dd日 HH:mm:ss"),
-        FORMAT_1("HH:mm:ss");
+        FORMAT_1("HH:mm:ss"),
+        FORMAT_2("yyyyMMdd");
 
         private String value;
         private DateFormat(String format){

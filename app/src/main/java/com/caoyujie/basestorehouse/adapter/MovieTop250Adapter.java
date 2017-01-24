@@ -29,7 +29,7 @@ public class MovieTop250Adapter extends BaseRecyclerViewAdapter<Movie.Subjects> 
     }
 
     @Override
-    protected BaseViewHolder<Movie.Subjects> getViewHolder(ViewGroup parent) {
+    protected BaseViewHolder<Movie.Subjects> getViewHolder(LayoutInflater layoutInflater, ViewGroup parent) {
         View itemView = layoutInflater.inflate(R.layout.list_movietop250_item,parent,false);
         return new ViewHolder(itemView);
     }

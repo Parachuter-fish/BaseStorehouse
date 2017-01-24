@@ -26,6 +26,11 @@ public class MenuDragAdapter extends DragGridView.DragAdapter {
         convertView = mLayoutInflater.inflate(R.layout.list_menu_drag, parent, false);
         TextView label = (TextView) convertView.findViewById(R.id.tv_label);
         label.setText((String) datas.get(position));
+        if(getItemViewType(position) == DragGridView.DragAdapter.ITEM_TYPE_HIDE){
+            convertView.setVisibility(View.INVISIBLE);
+        } else{
+            convertView.setVisibility(View.VISIBLE);
+        }
         return convertView;
     }
 }

@@ -22,8 +22,8 @@ public abstract class BaseSubcriber<T> extends Subscriber<ResponseBody> {
     public static final int SUCCEED_CODE = 200;
     public static final String SUCCEED_MSG = "";
 
-    public BaseSubcriber(Class<T> clx){
-        this.clx = clx;
+    public BaseSubcriber(Class<T> resultMode){
+        this.clx = resultMode;
     }
 
     @Override
@@ -50,8 +50,12 @@ public abstract class BaseSubcriber<T> extends Subscriber<ResponseBody> {
             }
             //解析数据之后回调给观察者
             if(!StringUtils.isEmpty(line = stringBuffer.toString())) {
-                T data = parseResult(line);
-                onResult(data);
+                if(clx == null){
+                    onResult((T)line);
+                }else {
+                    T data = parseResult(line);
+                    onResult(data);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

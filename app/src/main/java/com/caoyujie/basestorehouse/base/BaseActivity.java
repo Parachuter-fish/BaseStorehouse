@@ -3,18 +3,12 @@ package com.caoyujie.basestorehouse.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.Window;
 
-import com.caoyujie.basestorehouse.R;
 import com.caoyujie.basestorehouse.mvp.ui.LoadingView;
 import com.caoyujie.basestorehouse.commons.utils.UserPermissionManager;
 import com.caoyujie.basestorehouse.ui.widget.LoadingDialog;
-import com.github.ybq.android.spinkit.SpinKitView;
+import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.ButterKnife;
 
@@ -27,21 +21,19 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadingV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BaseApplication.mInstance.appendeActivity(this);
         setContentView(setContentView());
         ButterKnife.bind(this);
-        initView();
-        init(getIntent().getExtras());
+
+        //LeakCanary内存泄漏监视器
+        RefWatcher refWatcher = BaseApplication.getRefWatcher();
+        refWatcher.watch(this);
+
+        init();
     }
 
     protected abstract int setContentView();
 
-    protected abstract void initView();
-
-    /**
-     * @param bundle 跳转时携带的数据，需要判null处理
-     */
-    protected abstract void init(Bundle bundle);
+    protected abstract void init();
 
     /**
      * 跳转activity
@@ -93,11 +85,5 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadingV
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         //注册回调事件
         UserPermissionManager.getInstance().registCallBack(requestCode, permissions, grantResults);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        BaseApplication.mInstance.removeActivity(this);
     }
 }

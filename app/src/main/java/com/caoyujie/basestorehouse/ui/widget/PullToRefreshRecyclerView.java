@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.caoyujie.basestorehouse.base.BaseApplication;
 import com.caoyujie.basestorehouse.base.BaseRecyclerViewAdapter;
@@ -76,9 +77,8 @@ public class PullToRefreshRecyclerView extends BaseRecyclerView {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (!isLoadNext && newState == RecyclerView.SCROLL_STATE_IDLE && totalItemCount - 1 == lastVisibleItem) {
+                if (!isLoadNext && newState == RecyclerView.SCROLL_STATE_IDLE && totalItemCount - 2 <= lastVisibleItem) {
                     if (onLoadNextListener != null) {
-                        setLoadNext(true);
                         onLoadNextListener.onLoadNext(adapter);
                     }
                 }
@@ -104,13 +104,43 @@ public class PullToRefreshRecyclerView extends BaseRecyclerView {
 
 
     /**
-     * 是否加载更多
-     *
-     * @param isLoading 控制显示、隐藏
+     * 显示 "已到达底部"
      */
-    public void setLoadNext(boolean isLoading) {
-        isLoadNext = isLoading;
+    public void endNextLoad(){
+        BaseRecyclerViewAdapter.NextLoadViewHolder nextLoadViewHolder = adapter.getNextLoadViewHolder();
+        if(nextLoadViewHolder != null) {
+            nextLoadViewHolder.icon.setVisibility(View.GONE);
+            nextLoadViewHolder.content.setVisibility(View.VISIBLE);
+            nextLoadViewHolder.content.setText("已到达底部");
+            isLoadNext = false;
+        }
     }
+
+    /**
+     * 隐藏上拉加载更多
+     */
+    public void hideNextLoad(){
+        BaseRecyclerViewAdapter.NextLoadViewHolder nextLoadViewHolder = adapter.getNextLoadViewHolder();
+        if(nextLoadViewHolder != null) {
+            nextLoadViewHolder.icon.setVisibility(View.GONE);
+            nextLoadViewHolder.content.setVisibility(View.GONE);
+            isLoadNext = false;
+        }
+    }
+
+    /**
+     * 显示加载中
+     */
+    public void showNextLoading(){
+        BaseRecyclerViewAdapter.NextLoadViewHolder nextLoadViewHolder = adapter.getNextLoadViewHolder();
+        if(nextLoadViewHolder != null) {
+            nextLoadViewHolder.icon.setVisibility(View.VISIBLE);
+            nextLoadViewHolder.content.setVisibility(View.VISIBLE);
+            nextLoadViewHolder.content.setText("加载中...");
+            isLoadNext = true;
+        }
+    }
+
 
     /**
      * 到达底部接口

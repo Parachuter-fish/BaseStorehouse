@@ -1,6 +1,7 @@
 package com.caoyujie.basestorehouse.activity;
 
 import android.animation.Animator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -18,7 +19,7 @@ import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.caoyujie.basestorehouse.R;
-import com.caoyujie.basestorehouse.activity.fragment.Fragment1;
+import com.caoyujie.basestorehouse.activity.fragment.ZhihuListFragment;
 import com.caoyujie.basestorehouse.activity.fragment.Fragment2;
 import com.caoyujie.basestorehouse.activity.fragment.Fragment3;
 import com.caoyujie.basestorehouse.activity.fragment.MovieFragment;
@@ -32,8 +33,6 @@ import butterknife.BindView;
 
 public class MainActivity extends BaseFragmentActivity implements BottomNavigationBar.OnTabSelectedListener
         , SearchView.OnQueryTextListener {
-    @BindView(R.id.fl_fragment)
-    public FrameLayout fragmentContent;
     @BindView(R.id.bottom_nav_bar)
     public BottomNavigationBar buttomBar;
     @BindView(R.id.toobar)
@@ -50,7 +49,7 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
         return R.layout.activity_main;
     }
 
-    @Override
+
     protected void initView() {
         initBottomNavbar();
         /**
@@ -110,8 +109,8 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
         //生成标记
         gameBadge = initBadge(4, "5", false);
         //生成导航栏的item
-        movieItem = new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "movie");
-        musicItem = new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "music");
+        movieItem = new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "电影");
+        musicItem = new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "知乎");
         homeItem = new BottomNavigationItem(R.drawable.ic_home_white_24dp, "hone");
         gameItem = new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "game").setBadgeItem(gameBadge);
 
@@ -128,7 +127,8 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
     }
 
     @Override
-    protected void init(Bundle bundle) {
+    protected void init() {
+        initView();
         showFragment(MovieFragment.class);
         setToolBarTitleClick();
     }
@@ -188,7 +188,8 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_richScan:
-
+                //跳转扫一扫
+                jumpActivity(CaptureActivity.class,null,-1);
                 break;
             case R.id.action_more:
 
@@ -229,7 +230,7 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
                 showFragment(MovieFragment.class);
                 break;
             case 1:
-                showFragment(Fragment1.class);
+                showFragment(ZhihuListFragment.class);
                 break;
             case 2:
                 showFragment(Fragment2.class);
@@ -270,4 +271,20 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
         return false;
     }
     /************************************************************************/
+
+    /**
+     * 跳转activity
+     * 如果 requestCode = -1,则为startActivity,否则是startActivityForResult
+     */
+    private void jumpActivity(Class targetActivity,Bundle bundle,int requestCode){
+        Intent intent = new Intent(this,targetActivity);
+        if(bundle != null){
+            intent.putExtras(bundle);
+        }
+        if(requestCode > 0){
+            startActivityForResult(intent,requestCode);
+        } else {
+            startActivity(intent);
+        }
+    }
 }

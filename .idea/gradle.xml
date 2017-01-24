@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/database" />
             <option value="$PROJECT_DIR$/slidingmenu" />
+            <option value="$PROJECT_DIR$/zbar" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

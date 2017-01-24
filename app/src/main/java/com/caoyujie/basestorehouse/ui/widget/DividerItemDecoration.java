@@ -1,6 +1,7 @@
 package com.caoyujie.basestorehouse.ui.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -8,6 +9,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.caoyujie.basestorehouse.R;
 
 /**
  * Created by caoyujie on 16/11/22.
@@ -27,8 +30,20 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private int mOrientation;
 
+    //我们通过获取系统属性中的listDivider来添加，在系统中的AppTheme中设置
+    public static final int[] ATRRS  = new int[]{
+            android.R.attr.listDivider
+    };
+
+    //采用自定义的drawable作为分割线
     public DividerItemDecoration(Context context, int orientation , int drawableId) {
         mDivider = ContextCompat.getDrawable(context , drawableId);
+        setOrientation(orientation);
+    }
+
+    //采用默认的颜色作为分割线
+    public DividerItemDecoration(Context context, int orientation ) {
+        mDivider = ContextCompat.getDrawable(context , R.drawable.divider);
         setOrientation(orientation);
     }
 

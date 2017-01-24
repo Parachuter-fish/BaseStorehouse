@@ -24,9 +24,9 @@ public class WelcomeActivity extends BaseActivity implements UserPermissionManag
     }
 
     @Override
-    protected void initView() {
-        UserPermissionManager.getInstance().requestPermission(this,new String[]{Manifest.permission.READ_CONTACTS,Manifest.permission.CAMERA},1,this);
-        if(UserPermissionManager.getInstance().checkPermissions(new String[]{Manifest.permission.READ_CONTACTS,Manifest.permission.CAMERA})){
+    protected void init() {
+        UserPermissionManager.getInstance().requestPermission(this,new String[]{Manifest.permission.READ_CONTACTS},1,this);
+        if(UserPermissionManager.getInstance().checkPermissions(new String[]{Manifest.permission.READ_CONTACTS})){
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -35,11 +35,6 @@ public class WelcomeActivity extends BaseActivity implements UserPermissionManag
                 }
             },1000);
         }
-    }
-
-    @Override
-    protected void init(Bundle bundle) {
-
     }
 
     /**
@@ -53,7 +48,7 @@ public class WelcomeActivity extends BaseActivity implements UserPermissionManag
         if (requestCode == REQUEST_PERMISSIONS) {
             //判断请求结果是否都已被授权
             if (UserPermissionManager.getInstance().checkPermissions(permissions,grantResults)) {
-                initView();
+                init();
             }
             else {        //如果有被拒绝的权限则提示用户去设置开启
                 UserPermissionManager.getInstance().showTipsDialog(this);

@@ -51,6 +51,14 @@ public class RetrofitClient {
         return INSTANCE;
     }
 
+    public void get(String path, BaseSubcriber subscriber) throws UnsupportedEncodingException {
+        apiService.executeGET(path)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
     public void get(String path, Map<String, String> headParams, BaseSubcriber subscriber) throws UnsupportedEncodingException {
         apiService.executeGET(path, headParams)
                 .subscribeOn(Schedulers.io())

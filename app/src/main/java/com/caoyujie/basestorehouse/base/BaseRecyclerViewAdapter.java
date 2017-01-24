@@ -42,6 +42,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
     private View refreshFootView;                       //上拉加载时的底部布局
 
     private RefreshViewHolder refreshViewHolder;        //下拉刷新头部viewholder
+    private NextLoadViewHolder nextLoadViewHolder;      //上拉刷新头部viewholder
 
     public BaseRecyclerViewAdapter(Context context) {
         datas = new ArrayList<T>();
@@ -59,6 +60,14 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
     }
 
     /**
+     * 添加新数据
+     */
+    public void appendDatas(List<T> datas) {
+        this.datas.addAll(datas);
+        notifyDataSetChanged();
+    }
+
+    /**
      * 获得数据
      */
     public List<T> getDatas() {
@@ -71,11 +80,14 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
             refreshHeadView = layoutInflater.inflate(R.layout.layout_refresh_head, parent, false);     //添加默认的下拉刷新时的头部布局
             refreshViewHolder = new RefreshViewHolder(refreshHeadView);
             viewHolder = refreshViewHolder;
-        } else if (viewType == NEXT_LOADING_HOLDER) {
+        }
+        else if (viewType == NEXT_LOADING_HOLDER) {
             refreshFootView = layoutInflater.inflate(R.layout.layout_refresh_foot, parent, false);     //添加默认的上拉加载时的底部布局
-            viewHolder = new NextLoadViewHolder(refreshFootView);
-        } else {
-            viewHolder = getViewHolder(parent);
+            nextLoadViewHolder = new NextLoadViewHolder(refreshFootView);
+            viewHolder = nextLoadViewHolder;
+        }
+        else {
+            viewHolder = getViewHolder(layoutInflater, parent);
             viewHolder.setOnItemClickListener(new BaseViewHolder.OnItemClickListener() {
                 @Override
                 public void itemClickListener(View view, int position) {
@@ -98,14 +110,14 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
             int show = !isNotUpdata ? View.VISIBLE : View.GONE;
             holder.itemView.setVisibility(show);
         } else if (position > 0) {
-            if(datas == null || datas.size() <= 0){
+            if (datas == null || datas.size() <= 0) {
                 try {
                     throw new Exception("数据不能为空");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            holder.setData(mContext,datas.get(position - 1));
+            holder.setData(mContext, datas.get(position - 1));
         }
     }
 
@@ -125,7 +137,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
      *
      * @return
      */
-    protected abstract BaseViewHolder<T> getViewHolder(ViewGroup parent);
+    protected abstract BaseViewHolder<T> getViewHolder(LayoutInflater layoutInflater, ViewGroup parent);
 
     public interface OnRecyclerViewItemClickListener<T> {
         void onItemClick(View view, T data, int position);
@@ -143,7 +155,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
         if (refreshAble) {
             if (position == 0) {
                 return REFRESH_HOLDER;
-            } else if (position == getItemCount() - 1) {
+            } else if (position == getItemCount() - 1 && getDatas().size() > 0) {
                 return NEXT_LOADING_HOLDER;
             }
         }
@@ -155,7 +167,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
      * 是否开启上下拉刷新功能
      * 使用pullRefreshRecyclerView会自动开启
      */
-    public void refreshAble(boolean able){
+    public void refreshAble(boolean able) {
         refreshAble = able;
     }
 
@@ -182,7 +194,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
         }
 
         @Override
-        public void setData(Context context,T data) {
+        public void setData(Context context, T data) {
 
         }
     }
@@ -190,17 +202,23 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
     /**
      * 上拉加载更多viewholder
      */
-    static class NextLoadViewHolder<T> extends BaseViewHolder<T> {
+    public static class NextLoadViewHolder<T> extends BaseViewHolder<T> {
+        @BindView(R.id.loadingview)
+        public SpinKitView icon;
+        @BindView(R.id.tv_footText)
+        public TextView content;
 
         public NextLoadViewHolder(View itemView) {
             super(itemView);
+            /*RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
+                    , DensityUtils.dipTopx(BaseApplication.mInstance, 50));*/
             RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
-                    , DensityUtils.dipTopx(BaseApplication.mInstance, 50));
+                    , ViewGroup.LayoutParams.WRAP_CONTENT);
             itemView.setLayoutParams(params);
         }
 
         @Override
-        public void setData(Context context,T data) {
+        public void setData(Context context, T data) {
         }
     }
 
@@ -209,5 +227,12 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
      */
     public RefreshViewHolder getRefreshViewHodler() {
         return refreshViewHolder;
+    }
+
+    /**
+     * 获得上拉加载更多头部viewholder,里面装在所有的底部控件
+     */
+    public NextLoadViewHolder getNextLoadViewHolder() {
+        return nextLoadViewHolder;
     }
 }

@@ -17,7 +17,9 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.caoyujie.basestorehouse.R;
 import com.caoyujie.basestorehouse.commons.utils.StringUtils;
 
 import java.util.ArrayList;
@@ -260,7 +262,7 @@ public class DragGridView<T extends DragGridView.DragAdapter> extends GridView i
      */
     private TranslateAnimation getMoveAnim(float toX, float toY) {
         TranslateAnimation anim = new TranslateAnimation(0.0F, toX , 0.0F , toY);
-        anim.setDuration(300);
+        anim.setDuration(200);
         anim.setFillAfter(true);
         return anim;
     }
