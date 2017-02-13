@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends AppCompatActivity implements LoadingView {
     private LoadingDialog loadingview;
+    private RefWatcher refWatcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadingV
         ButterKnife.bind(this);
 
         //LeakCanary内存泄漏监视器
-        RefWatcher refWatcher = BaseApplication.getRefWatcher();
+        refWatcher = BaseApplication.getRefWatcher();
         refWatcher.watch(this);
 
         init();
