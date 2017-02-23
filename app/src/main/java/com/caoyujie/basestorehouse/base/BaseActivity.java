@@ -24,11 +24,6 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadingV
         super.onCreate(savedInstanceState);
         setContentView(setContentView());
         ButterKnife.bind(this);
-
-        //LeakCanary内存泄漏监视器
-        refWatcher = BaseApplication.getRefWatcher();
-        refWatcher.watch(this);
-
         init();
     }
 
@@ -86,5 +81,13 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadingV
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         //注册回调事件
         UserPermissionManager.getInstance().registCallBack(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //LeakCanary内存泄漏监视器
+        refWatcher = BaseApplication.getRefWatcher();
+        refWatcher.watch(this);
     }
 }
