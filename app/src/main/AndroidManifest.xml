@@ -12,16 +12,18 @@
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon_launch"
         android:label="${app_name_label}"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Design.Light.NoActionBar">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".activity.MainActivity"
             android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".activity.WelcomeActivity">
+        <activity android:name=".activity.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/baseTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

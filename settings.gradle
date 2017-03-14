@@ -1,4 +1,4 @@
-include ':app', ':database', ':zbar', 'slidingmenu';
+include ':app', ':database', ':zbar', 'slidingmenu' ;
 
 project(':database').projectDir = new File('./database')
 project(':slidingmenu').projectDir = new File('./slidingmenu')

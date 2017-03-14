@@ -7,33 +7,44 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".activity.MainActivity">
+        android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toobar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorGreen"
-            android:theme="@style/HomeToolbar"
-            app:title="BaseStorehouse"></android.support.v7.widget.Toolbar>
-
-        <FrameLayout
-            android:id="@+id/fl_fragment"
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"></FrameLayout>
+            android:layout_weight="1">
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toobar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorGreen"
+                    android:theme="@style/HomeToolbar"
+                    app:layout_collapseMode="pin"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:title="BaseStorehouse"></android.support.v7.widget.Toolbar>
+            </android.support.design.widget.AppBarLayout>
+
+                <FrameLayout
+                    android:id="@+id/fl_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"></FrameLayout>
+
+        </android.support.design.widget.CoordinatorLayout>
 
         <com.ashokvarma.bottomnavigation.BottomNavigationBar
             android:id="@+id/bottom_nav_bar"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_gravity="bottom"></com.ashokvarma.bottomnavigation.BottomNavigationBar>
-
     </LinearLayout>
 
     <View
@@ -41,6 +52,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#494949"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 </RelativeLayout>

@@ -1,27 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_welcome">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal">
-    <ImageView
-        android:layout_width="@dimen/icon_welcome_size"
-        android:layout_height="@dimen/icon_welcome_size"
-        android:src="@drawable/fish"/>
-
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome_title"
-        android:textSize="@dimen/test_size_largest"
-        android:layout_marginTop="@dimen/margin_welcome_icon"/>
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_skip"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:background="@drawable/welcome_bg_timer"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        tools:text="跳过(3)"
+        android:textColor="@color/welcome_bg_timer"
+        android:visibility="gone"/>
 
 </RelativeLayout>

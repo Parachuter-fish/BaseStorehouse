@@ -123,7 +123,6 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
         buttomBar.setFirstSelectedPosition(0);      //默认展示item
         buttomBar.initialise();                     //初始化navigationbar
         buttomBar.setTabSelectedListener(this);     //设置导航切换监听
-
     }
 
     @Override

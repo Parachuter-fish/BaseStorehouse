@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -7,14 +8,23 @@
     <com.caoyujie.basestorehouse.ui.MovieTitleView
         android:id="@+id/movie_title_bar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"></com.caoyujie.basestorehouse.ui.MovieTitleView>
+        android:layout_height="wrap_content"
+        ></com.caoyujie.basestorehouse.ui.MovieTitleView>
 
-    <ImageView
-        android:id="@+id/iv_content"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:scaleType="centerCrop"/>
+        android:layout_height="250dp"
+        app:cardCornerRadius="5dp"
+        android:layout_marginLeft="@dimen/appCardMargin"
+        android:layout_marginRight="@dimen/appCardMargin"
+        android:layout_marginBottom="5dp">
+        <ImageView
+            android:id="@+id/iv_content"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop"
+            app:cardElevation="@dimen/appElevation"/>
+    </android.support.v7.widget.CardView>
+
 
 </LinearLayout>

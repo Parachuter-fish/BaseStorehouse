@@ -1,4 +1,4 @@
-package com.zbar.lib;
+package com.caoyujie.basestorehouse.base;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.os.Handler;
 /**
  * 二维码扫描画面
  */
-public abstract class BaseCaptureActivity extends Activity{
+public abstract class BaseCaptureActivity extends BaseActivity{
     public abstract void handleDecode(String qrCodeString);
     public abstract boolean isNeedCapture();
     public abstract int getCropHeight();

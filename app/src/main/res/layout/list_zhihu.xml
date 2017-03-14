@@ -11,6 +11,7 @@
         android:scaleType="centerCrop"
         android:layout_margin="7dp"/>
 
+
     <TextView
         android:id="@+id/tv_digest"
         android:layout_width="match_parent"

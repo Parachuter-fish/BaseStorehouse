@@ -4,28 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/bt1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="create"
-        android:text="创建桌面快捷方式"
-        android:visibility="gone" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/bt1"
-        android:onClick="delect"
-        android:text="删除桌面快捷方式"
-        android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -34,12 +12,13 @@
             android:id="@+id/xRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/bt1"></com.caoyujie.basestorehouse.ui.widget.PullToRefreshRecyclerView>
+            ></com.caoyujie.basestorehouse.ui.widget.PullToRefreshRecyclerView>
 
         <com.caoyujie.basestorehouse.ui.MovieTitleView
             android:id="@+id/movie_title_bar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"></com.caoyujie.basestorehouse.ui.MovieTitleView>
+            android:layout_height="wrap_content"></com.caoyujie.basestorehouse.ui.MovieTitleView>
 
     </FrameLayout>
+
 </LinearLayout>

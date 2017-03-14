@@ -14,4 +14,13 @@
 
     <dimen name="slidingmenu_offset">100dp</dimen>
     <dimen name="shadow_width">10dp</dimen>
+    <dimen name="line">0.5dp</dimen>
+
+    <!--卡片view的margin-->
+    <dimen name="appCardMargin">15dp</dimen>
+    <!--统一z轴阴影值-->
+    <dimen name="appElevation">2dp</dimen>
+
+
+
 </resources>
