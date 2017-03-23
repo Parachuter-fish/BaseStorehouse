@@ -5,14 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.caoyujie.basestorehouse.R;
 import com.caoyujie.basestorehouse.base.BaseApplication;
 import com.caoyujie.basestorehouse.base.BaseRecyclerViewAdapter;
 import com.caoyujie.basestorehouse.base.BaseViewHolder;
 import com.caoyujie.basestorehouse.mvp.bean.Movie;
-import com.caoyujie.basestorehouse.network.imageload.GlideRoundTransform;
 import com.caoyujie.basestorehouse.network.imageload.ImageLoadManager;
 import com.caoyujie.basestorehouse.ui.MovieTitleView;
 

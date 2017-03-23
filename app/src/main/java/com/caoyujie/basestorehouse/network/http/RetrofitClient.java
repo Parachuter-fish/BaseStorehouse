@@ -1,6 +1,6 @@
 package com.caoyujie.basestorehouse.network.http;
 
-import com.caoyujie.basestorehouse.mvp.bean.Movie;
+import com.caoyujie.basestorehouse.network.http.api.ApiService;
 import com.google.gson.Gson;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
@@ -24,13 +24,16 @@ public class RetrofitClient {
     public static final String BASE_URL = "https://api.douban.com/";
     private Retrofit retrofit;
     private ApiService apiService;
+    private ApiService meinvApi;
+    private OkHttpClient client;
+    private  Gson gson;
 
     private RetrofitClient() {
         //构造一个OkHttpClient
-        OkHttpClient client = new OkHttpClient.Builder()
+        client = new OkHttpClient.Builder()
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .build();
-        Gson gson = new Gson();
+        gson = new Gson();
         retrofit = new Retrofit.Builder()
                 .client(client)
                 .baseUrl(BASE_URL)
@@ -74,5 +77,37 @@ public class RetrofitClient {
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
+    }
+
+    /**
+     * 获取美女列表
+     * @return
+     */
+    public void getMeivnList(Map<String, String> dataParams
+            , Subscriber<ResponseBody> subscriber) {
+        if(dataParams != null){
+            dataParams.put("channel","T1456112189138");
+        }
+        getMeinvApi().getMeinvList(dataParams)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    private ApiService getMeinvApi(){
+        if (meinvApi == null) {
+            synchronized (RetrofitClient.class) {
+                if (meinvApi == null) {
+                    meinvApi = new Retrofit.Builder()
+                            .baseUrl("http://c.3g.163.com/")
+                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                            .client(client)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build().create(ApiService.class);
+                }
+            }
+        }
+        return meinvApi;
     }
 }

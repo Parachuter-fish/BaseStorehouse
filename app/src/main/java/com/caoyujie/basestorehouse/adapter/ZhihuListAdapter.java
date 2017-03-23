@@ -1,18 +1,15 @@
 package com.caoyujie.basestorehouse.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.caoyujie.basestorehouse.R;
 import com.caoyujie.basestorehouse.base.BaseRecyclerViewAdapter;
 import com.caoyujie.basestorehouse.base.BaseViewHolder;
-import com.caoyujie.basestorehouse.commons.utils.LogUtils;
 import com.caoyujie.basestorehouse.mvp.bean.ZhihuListMode;
 import com.caoyujie.basestorehouse.network.imageload.ImageLoadManager;
 

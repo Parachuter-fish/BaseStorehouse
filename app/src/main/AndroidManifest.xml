@@ -40,6 +40,9 @@
         <activity android:name=".activity.CaptureActivity"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".activity.BigPhotoPreviewActivity"
+            android:screenOrientation="portrait"/>
+
 
 
         <!--创建快捷方式广播-->

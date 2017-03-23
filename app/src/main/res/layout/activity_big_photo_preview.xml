@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000">
+
+    <com.caoyujie.basestorehouse.ui.widget.PhotoPreviewViewPager
+        android:id="@+id/vp_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.caoyujie.basestorehouse.ui.widget.PhotoPreviewViewPager>
+
+    <ImageButton
+        android:id="@+id/iv_close"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/close"
+        android:layout_margin="20dp"/>
+
+</RelativeLayout>

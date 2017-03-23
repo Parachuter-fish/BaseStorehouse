@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.ashokvarma.bottomnavigation.BadgeItem;
@@ -20,7 +19,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.caoyujie.basestorehouse.R;
 import com.caoyujie.basestorehouse.activity.fragment.ZhihuListFragment;
-import com.caoyujie.basestorehouse.activity.fragment.Fragment2;
+import com.caoyujie.basestorehouse.activity.fragment.MeinvListFragment;
 import com.caoyujie.basestorehouse.activity.fragment.Fragment3;
 import com.caoyujie.basestorehouse.activity.fragment.MovieFragment;
 import com.caoyujie.basestorehouse.base.BaseFragmentActivity;
@@ -109,9 +108,9 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
         //生成标记
         gameBadge = initBadge(4, "5", false);
         //生成导航栏的item
-        movieItem = new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "电影");
-        musicItem = new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "知乎");
-        homeItem = new BottomNavigationItem(R.drawable.ic_home_white_24dp, "hone");
+        movieItem = new BottomNavigationItem(R.drawable.icon_tab_zhihu, "知乎");
+        musicItem = new BottomNavigationItem(R.drawable.icon_tab_meinv, "美女");
+        homeItem = new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "电影");
         gameItem = new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "game").setBadgeItem(gameBadge);
 
         buttomBar.addItem(movieItem);
@@ -226,13 +225,13 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
     public void onTabSelected(int position) {
         switch (position) {
             case 0:
-                showFragment(MovieFragment.class);
-                break;
-            case 1:
                 showFragment(ZhihuListFragment.class);
                 break;
+            case 1:
+                showFragment(MeinvListFragment.class);
+                break;
             case 2:
-                showFragment(Fragment2.class);
+                showFragment(MovieFragment.class);
                 break;
             case 3:
                 if (!gameBadge.isHidden()) {

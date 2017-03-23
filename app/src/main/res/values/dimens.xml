@@ -21,6 +21,8 @@
     <!--统一z轴阴影值-->
     <dimen name="appElevation">2dp</dimen>
 
+    <dimen name="photo_margin_width">1dp</dimen>
+
 
 
 </resources>

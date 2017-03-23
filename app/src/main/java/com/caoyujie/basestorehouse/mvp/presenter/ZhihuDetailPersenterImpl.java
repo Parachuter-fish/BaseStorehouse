@@ -1,14 +1,10 @@
 package com.caoyujie.basestorehouse.mvp.presenter;
 
 import com.caoyujie.basestorehouse.mvp.bean.ZhihuDetailModel;
-import com.caoyujie.basestorehouse.mvp.bean.ZhihuListMode;
 import com.caoyujie.basestorehouse.mvp.ui.LoadingView;
 import com.caoyujie.basestorehouse.mvp.ui.UpdataView;
 import com.caoyujie.basestorehouse.network.http.BaseSubcriber;
 import com.caoyujie.basestorehouse.network.http.ZhihuRetrofitClient;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;

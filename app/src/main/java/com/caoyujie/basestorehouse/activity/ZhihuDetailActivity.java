@@ -1,10 +1,6 @@
 package com.caoyujie.basestorehouse.activity;
 
-import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -12,9 +8,7 @@ import android.widget.ImageView;
 import com.caoyujie.basestorehouse.R;
 import com.caoyujie.basestorehouse.base.BaseActivity;
 import com.caoyujie.basestorehouse.mvp.bean.ZhihuDetailModel;
-import com.caoyujie.basestorehouse.mvp.bean.ZhihuListMode;
 import com.caoyujie.basestorehouse.mvp.presenter.ZhihuDetailPersenterImpl;
-import com.caoyujie.basestorehouse.mvp.ui.LoadingView;
 import com.caoyujie.basestorehouse.mvp.ui.UpdataView;
 import com.caoyujie.basestorehouse.network.imageload.ImageLoadManager;
 

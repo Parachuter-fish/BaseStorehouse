@@ -1,18 +1,11 @@
 package com.caoyujie.basestorehouse.activity.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.caoyujie.basestorehouse.R;
-import com.caoyujie.basestorehouse.activity.MainActivity;
 import com.caoyujie.basestorehouse.adapter.MovieTop250Adapter;
-import com.caoyujie.basestorehouse.base.BaseActivity;
 import com.caoyujie.basestorehouse.base.BaseFragment;
 import com.caoyujie.basestorehouse.mvp.bean.Movie;
 import com.caoyujie.basestorehouse.mvp.presenter.MovieTop250PersenterImpl;
@@ -25,7 +18,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by caoyujie on 17/1/9.

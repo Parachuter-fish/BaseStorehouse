@@ -1,5 +1,6 @@
 package com.caoyujie.basestorehouse.network.http;
 
+import com.caoyujie.basestorehouse.network.http.api.ApiService;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
