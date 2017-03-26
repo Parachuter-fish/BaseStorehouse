@@ -40,7 +40,7 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
     public View v_filter;
 
     private SlidingMenu slidingMenu;
-    private BottomNavigationItem movieItem, musicItem, homeItem, gameItem;
+    private BottomNavigationItem zhihuItem, meinvItem, movieItem, gameItem;
     private BadgeItem gameBadge;
 
     @Override
@@ -108,26 +108,26 @@ public class MainActivity extends BaseFragmentActivity implements BottomNavigati
         //生成标记
         gameBadge = initBadge(4, "5", false);
         //生成导航栏的item
-        movieItem = new BottomNavigationItem(R.drawable.icon_tab_zhihu, "知乎");
-        musicItem = new BottomNavigationItem(R.drawable.icon_tab_meinv, "美女");
-        homeItem = new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "电影");
+        zhihuItem = new BottomNavigationItem(R.drawable.icon_tab_zhihu, "知乎");
+        meinvItem = new BottomNavigationItem(R.drawable.icon_tab_meinv, "美女");
+        movieItem = new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "电影");
         gameItem = new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "game").setBadgeItem(gameBadge);
 
+        buttomBar.addItem(zhihuItem);
+        buttomBar.addItem(meinvItem);
         buttomBar.addItem(movieItem);
-        buttomBar.addItem(musicItem);
-        buttomBar.addItem(homeItem);
         //添加标记例子
         buttomBar.addItem(gameItem);
         buttomBar.setActiveColor(R.color.colorGreen).setInActiveColor(R.color.navbar_bottom_inactivity_color);
+        buttomBar.setTabSelectedListener(this);     //设置导航切换监听
         buttomBar.setFirstSelectedPosition(0);      //默认展示item
         buttomBar.initialise();                     //初始化navigationbar
-        buttomBar.setTabSelectedListener(this);     //设置导航切换监听
     }
 
     @Override
     protected void init() {
         initView();
-        showFragment(MovieFragment.class);
+        showFragment(ZhihuListFragment.class);      //默认显示知乎fragment
         setToolBarTitleClick();
     }
 
